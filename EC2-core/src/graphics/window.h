@@ -1,11 +1,14 @@
 #pragma once
 
 #include <iostream>
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 namespace ec2 {
     namespace graphics {
-        void windowResize(GLFWwindow *window, int width, int height);
+
+#define MAX_KEYS 1024
+#define MAX_BUTTONS 32
 
         class Window
         {
@@ -14,6 +17,10 @@ namespace ec2 {
             int _width, _height;
             GLFWwindow *_window;
             bool _closed;
+
+            bool _keys[MAX_KEYS];
+            bool _buttons[MAX_BUTTONS];
+            double _mx, _my;
         public:
             Window(const char *title, int width, int height);
             ~Window();
@@ -21,10 +28,18 @@ namespace ec2 {
             void update();
             void clear() const;
 
-            int getWidth();
-            int getHeight();
+            int getWidth() const;
+            int getHeight() const;
+
+            bool isKeyPressed(unsigned int keycode) const;
+            bool isButtonPressed(unsigned int button) const;
+            void getMousePosition(double &x, double &y) const;
+
         private:
             bool init();
+            friend static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
+            friend static void mouse_button_callback(GLFWwindow *window, int button, int action, int mods);
+            friend static void cursor_position_callback(GLFWwindow *window, double xpos, double ypos);
         };
     }
 }
