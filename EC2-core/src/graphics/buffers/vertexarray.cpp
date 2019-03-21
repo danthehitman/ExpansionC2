@@ -14,6 +14,8 @@ namespace ec2 {
             {
                 delete _buffers[i];
             }
+
+            glDeleteVertexArrays(1, &_arrayId);
         }
 
         void VertexArray::addBuffer(Buffer * buffer, GLuint index)

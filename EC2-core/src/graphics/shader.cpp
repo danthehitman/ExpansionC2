@@ -49,8 +49,8 @@ namespace ec2 {
             GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
             GLuint fragment = glCreateShader(GL_FRAGMENT_SHADER);
 
-            std::string  vertSourceString = FileUtils::read_file(_vertPath).c_str();
-            std::string fragSourceString = FileUtils::read_file(_fragPath).c_str();
+            std::string  vertSourceString = FileUtils::read_file(_vertPath);
+            std::string fragSourceString = FileUtils::read_file(_fragPath);
 
             const char *  vertSource = vertSourceString.c_str();
             const char * fragSource = fragSourceString.c_str();

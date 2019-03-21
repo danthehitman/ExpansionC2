@@ -16,6 +16,7 @@ namespace ec2 {
 
         Buffer::~Buffer()
         {
+            glDeleteBuffers(1, &_bufferId);
         }
 
         void graphics::Buffer::bind() const

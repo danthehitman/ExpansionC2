@@ -58,7 +58,7 @@ namespace ec2 {
 
         bool vec4::operator!=(const vec4 & other)
         {
-            return !operator==(other);
+            return !(*this == other);
         }
 
         vec4& vec4::operator+=(const vec4& other)

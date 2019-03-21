@@ -67,6 +67,8 @@ namespace ec2 {
             glfwSetMouseButtonCallback(_window, mouse_button_callback);
             glfwSetCursorPosCallback(_window, cursor_position_callback);
 
+            glfwSwapInterval(0.0);
+
             if (glewInit() != GLEW_OK)
             {
                 std::cout << "Could not initialize GLEW!" << std::endl;

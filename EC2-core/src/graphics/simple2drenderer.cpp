@@ -5,22 +5,22 @@ namespace ec2 {
 
         void Simple2DRenderer::submit(const Renderable2D * renderable)
         {
-            _renderQueue.push_back(renderable);
+            _renderQueue.push_back((StaticSprite*)renderable);
         }
 
         void Simple2DRenderer::flush()
         {
             while (!_renderQueue.empty())
             {
-                const Renderable2D * renderable = _renderQueue.front();
-                renderable->getVao()->bind();
-                renderable->getIbo()->bind();
+                const StaticSprite * sprite = _renderQueue.front();
+                sprite->getVao()->bind();
+                sprite->getIbo()->bind();
 
-                renderable->getShader().setUniformMat4("ml_matrix", maths::mat4::translation(renderable->getPosition()));
-                glDrawElements(GL_TRIANGLES, renderable->getIbo()->getCount(), GL_UNSIGNED_SHORT, nullptr);
+                sprite->getShader().setUniformMat4("ml_matrix", maths::mat4::translation(sprite->getPosition()));
+                glDrawElements(GL_TRIANGLES, sprite->getIbo()->getCount(), GL_UNSIGNED_SHORT, nullptr);
 
-                renderable->getVao()->unbind();
-                renderable->getIbo()->unbind();
+                sprite->getVao()->unbind();
+                sprite->getIbo()->unbind();
 
                 _renderQueue.pop_front();
             }

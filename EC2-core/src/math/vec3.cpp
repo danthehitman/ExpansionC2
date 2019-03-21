@@ -60,7 +60,7 @@ namespace ec2 {
 
         bool vec3::operator!=(const vec3 & other)
         {
-            return !operator==(other);
+            return !(*this == other);
         }
 
         vec3& vec3::operator+=(const vec3& other)
