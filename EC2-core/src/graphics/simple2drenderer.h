@@ -3,6 +3,7 @@
 #include <deque>
 #include "staticsprite.h"
 #include "renderer2d.h"
+#include "renderable2d.h"
 
 namespace ec2 {
     namespace graphics {

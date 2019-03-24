@@ -5,6 +5,7 @@
 #include "buffers\vertexarray.h"
 #include "../math/maths.h"
 #include "shader.h"
+#include "renderer2d.h"
 
 namespace ec2 {
     namespace graphics {
@@ -22,6 +23,8 @@ namespace ec2 {
             maths::vec3 _position;
             maths::vec2 _size;
             maths::vec4 _color;
+        protected:
+            Renderable2D() { }
 
 
         public:
@@ -34,6 +37,11 @@ namespace ec2 {
             virtual ~Renderable2D()
             {
                 
+            }
+
+            virtual void submit(Renderer2D * renderer) const
+            {
+                renderer->submit(this);
             }
 
             inline const maths::vec3 & getPosition() const { return _position; }

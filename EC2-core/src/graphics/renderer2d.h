@@ -1,11 +1,14 @@
 #pragma once
 
-#include "renderable2d.h"
+#include <vector>
 #include <GL/glew.h>
 #include "../math/maths.h"
 
+
 namespace ec2 {
     namespace graphics {
+        class Renderable2D;
+
         class Renderer2D
         {
         protected:
