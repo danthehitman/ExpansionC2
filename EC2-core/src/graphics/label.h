@@ -6,8 +6,10 @@ namespace ec2 {
     namespace graphics {
         class Label : public Renderable2D
         {
-        private:
-            std::string _text;
+        public:
+            std::string text;
+            maths::vec3 & position;
+            float x, y;
         public:
             Label(std::string text, float x, float y, maths::vec4 color);
             ~Label();

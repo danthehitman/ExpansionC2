@@ -35,8 +35,6 @@ namespace ec2 {
                 renderable->submit(_renderer);
             }
 
-            _renderer->drawString("Test", maths::vec3(-5, 0, 0), maths::vec4(0, 0, 0, 1));
-
             _renderer->end();
 
             _renderer->flush();

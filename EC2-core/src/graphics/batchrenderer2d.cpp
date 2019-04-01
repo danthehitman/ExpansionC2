@@ -56,8 +56,8 @@ namespace ec2 {
 
             glBindVertexArray(0);
 
-            _ftAtlas = ftgl::texture_atlas_new(512, 512, 1);
-            _ftFont = ftgl::texture_font_new_from_file(_ftAtlas, 80, "arial.ttf");
+            _ftAtlas = ftgl::texture_atlas_new(512, 512, 2);
+            _ftFont = ftgl::texture_font_new_from_file(_ftAtlas, 32, "SourceCodePro-Light.ttf");
 
             //ftgl::texture_glyph_t *glyph =  ftgl::texture_font_get_glyph(_ftFont, 'A');
 
@@ -106,15 +106,13 @@ namespace ec2 {
                     ts = (float)_textureSlots.size();
                 }
             }
-            else
-            {
-                int r = color.x * 255.0f;
-                int g = color.y * 255.0f;
-                int b = color.z * 255.0f;
-                int a = color.w * 255.0f;
 
-                c = a << 24 | b << 16 | g << 8 | r;
-            }
+            int r = color.x * 255.0f;
+            int g = color.y * 255.0f;
+            int b = color.z * 255.0f;
+            int a = color.w * 255.0f;
+
+            c = a << 24 | b << 16 | g << 8 | r;
 
 
             _buffer->vertex = *_transformationBack * position;

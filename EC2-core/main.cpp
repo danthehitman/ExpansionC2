@@ -16,6 +16,7 @@
 
 #include "src\graphics\layers\tilelayer.h"
 #include "src\graphics\layers\group.h"
+#include "src\graphics\label.h"
 
 #include <time.h>
 #include "src/graphics/texture.h"
@@ -118,6 +119,13 @@ int main()
         }
     }
 
+    Group * g = new Group(maths::mat4::translation(maths::vec3(-15.8f, 7.0f, 0.0f)));
+    Label * fps = new Label("", 0.4f, 0.4f, maths::vec4(0.8f, 0.8f, 0.8f, 1.0f));
+    g->add(new Sprite(0, 0, 5, 1.5f, maths::vec4(0.2f, 0.2f, 0.2f, 0.9f)));
+    g->add(fps);
+    layer.add(g);
+    layer.add(new Label("Hello World!", 0, 0, maths::vec4(0,0,0,1)));
+
 
     GLint texIds[] =
     {
@@ -147,6 +155,7 @@ int main()
         if (time.elapsed() - timer > 1.0f)
         {
             timer += 1.0f;
+            fps->text = std::to_string(frames) + " fps";
             printf("%d fps\n", frames);
             frames = 0;
         }
