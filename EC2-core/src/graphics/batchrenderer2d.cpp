@@ -74,11 +74,9 @@ namespace ec2 {
         {
             const maths::vec3 & position = renderable->getPosition();
             const maths::vec2 & size = renderable->getSize();
-            const maths::vec4 & color = renderable->getColor();
+            const unsigned int color = renderable->getColor();
             const std::vector<maths::vec2> & uvs = renderable->getUvs();
             const GLuint tid = renderable->getTid();
-
-            unsigned int c = 0;
 
             float ts = 0.0f;
             if (tid > 0)
@@ -107,51 +105,36 @@ namespace ec2 {
                 }
             }
 
-            int r = color.x * 255.0f;
-            int g = color.y * 255.0f;
-            int b = color.z * 255.0f;
-            int a = color.w * 255.0f;
-
-            c = a << 24 | b << 16 | g << 8 | r;
-
-
             _buffer->vertex = *_transformationBack * position;
             _buffer->uv = uvs[0];
             _buffer->tid = ts;
-            _buffer->color = c;
+            _buffer->color = color;
             _buffer++;
 
             _buffer->vertex = *_transformationBack * maths::vec3(position.x, position.y + size.y, position.z);
             _buffer->uv = uvs[1];
             _buffer->tid = ts;
-            _buffer->color = c;
+            _buffer->color = color;
             _buffer++;
 
             _buffer->vertex = *_transformationBack * maths::vec3(position.x + size.x, position.y + size.y, position.z);
             _buffer->uv = uvs[2];
             _buffer->tid = ts;
-            _buffer->color = c;
+            _buffer->color = color;
             _buffer++;
 
             _buffer->vertex = *_transformationBack * maths::vec3(position.x + size.x, position.y, position.z);
             _buffer->uv = uvs[3];
             _buffer->tid = ts;
-            _buffer->color = c;
+            _buffer->color = color;
             _buffer++;
 
             _indexCount += 6;
         }
 
-        void BatchRenderer2D::drawString(const std::string & text, const maths::vec3 & position, const maths::vec4 & color)
+        void BatchRenderer2D::drawString(const std::string & text, const maths::vec3 & position, unsigned int color)
         {
             using namespace ftgl;
-
-            int r = color.x * 255.0f;
-            int g = color.y * 255.0f;
-            int b = color.z * 255.0f;
-            int a = color.w * 255.0f;
-
-            unsigned int col = a << 24 | b << 16 | g << 8 | r;
 
             float ts = 0.0f;
 
@@ -208,25 +191,25 @@ namespace ec2 {
                     _buffer->vertex = *_transformationBack * maths::vec3(x0, y0, 0);
                     _buffer->uv = maths::vec2(u0, v0);
                     _buffer->tid = ts;
-                    _buffer->color = col;
+                    _buffer->color = color;
                     _buffer++;
 
                     _buffer->vertex = *_transformationBack * maths::vec3(x0, y1, 0);
                     _buffer->uv = maths::vec2(u0, v1);
                     _buffer->tid = ts;
-                    _buffer->color = col;
+                    _buffer->color = color;
                     _buffer++;
 
                     _buffer->vertex = *_transformationBack *maths::vec3(x1, y1, 0);
                     _buffer->uv = maths::vec2(u1, v1);
                     _buffer->tid = ts;
-                    _buffer->color = col;
+                    _buffer->color = color;
                     _buffer++;
 
                     _buffer->vertex = *_transformationBack *maths::vec3(x1, y0, 0);
                     _buffer->uv = maths::vec2(u1, v0);
                     _buffer->tid = ts;
-                    _buffer->color = col;
+                    _buffer->color = color;
                     _buffer++;
 
                     _indexCount += 6;

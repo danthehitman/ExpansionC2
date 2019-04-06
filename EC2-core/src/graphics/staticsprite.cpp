@@ -4,7 +4,7 @@ namespace ec2 {
     namespace graphics {
 
         StaticSprite::StaticSprite(float x, float y, float width, float height,const maths::vec4 & color, Shader & shader)
-            : Renderable2D(maths::vec3(x, y, 0), maths::vec2(width, height), color), _shader(shader)
+            : Renderable2D(maths::vec3(x, y, 0), maths::vec2(width, height), 0xffffff), _shader(shader)
         {
             _vertexArray = new VertexArray();
             GLfloat vertices[] =

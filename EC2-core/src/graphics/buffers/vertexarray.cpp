@@ -28,6 +28,8 @@ namespace ec2 {
 
             buffer->unbind();
             unbind();
+
+            _buffers.push_back(buffer);
         }
 
         void VertexArray::bind() const

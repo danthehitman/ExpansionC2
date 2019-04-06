@@ -19,7 +19,11 @@ namespace ec2 {
             bool _closed;
 
             bool _keys[MAX_KEYS];
+            bool _keyState[MAX_KEYS];
+            bool _keyTyped[MAX_KEYS];
             bool _buttons[MAX_BUTTONS];
+            bool _mouseState[MAX_KEYS];
+            bool _mouseClicked[MAX_KEYS];
             double _mx, _my;
         public:
             Window(const char *title, int width, int height);
@@ -28,15 +32,18 @@ namespace ec2 {
             void update();
             void clear() const;
 
-            int getWidth() const;
-            int getHeight() const;
+            inline int getWidth() const { return _width; }
+            inline int getHeight() const { return _height; }
 
             bool isKeyPressed(unsigned int keycode) const;
+            bool isKeyTyped(unsigned int keycode) const;
             bool isButtonPressed(unsigned int button) const;
+            bool isButtonClicked(unsigned int button) const;
             void getMousePosition(double &x, double &y) const;
 
         private:
             bool init();
+            friend static void window_resize(GLFWwindow *window, int width, int height);
             friend static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
             friend static void mouse_button_callback(GLFWwindow *window, int button, int action, int mods);
             friend static void cursor_position_callback(GLFWwindow *window, double xpos, double ypos);

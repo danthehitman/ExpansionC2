@@ -24,7 +24,7 @@ namespace ec2 {
         protected:
             maths::vec3 _position;
             maths::vec2 _size;
-            maths::vec4 _color;
+            unsigned int _color;
             std::vector<maths::vec2> _uvs;
             Texture * _texture;
         protected:
@@ -36,7 +36,7 @@ namespace ec2 {
 
 
         public:
-            Renderable2D(maths::vec3 position, maths::vec2 size, maths::vec4 color)
+            Renderable2D(maths::vec3 position, maths::vec2 size, unsigned int color)
                 : _position(position), _size(size), _color(color), _texture(nullptr)
             {
                 setUvDefaults();
@@ -52,9 +52,26 @@ namespace ec2 {
                 renderer->submit(this);
             }
 
+            void setColor(unsigned int color)
+            {
+                _color = color;
+            }
+            
+            void setColor(const maths::vec4& color) 
+            {
+
+
+                int r = color.x * 255.0f;
+                int g = color.y * 255.0f;
+                int b = color.z * 255.0f;
+                int a = color.w * 255.0f;
+
+                _color = a << 24 | b << 16 | g << 8 | r;
+            }
+
             inline const maths::vec3 & getPosition() const { return _position; }
             inline const maths::vec2 & getSize() const { return _size; }
-            inline const maths::vec4 & getColor() const { return _color; }
+            inline const unsigned int & getColor() const { return _color; }
             inline const std::vector<maths::vec2> & getUvs() const { return _uvs; }
 
             inline const GLuint getTid() const 
