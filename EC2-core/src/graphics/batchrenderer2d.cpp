@@ -56,12 +56,6 @@ namespace ec2 {
 
             glBindVertexArray(0);
 
-            _ftAtlas = ftgl::texture_atlas_new(512, 512, 2);
-            _ftFont = ftgl::texture_font_new_from_file(_ftAtlas, 32, "SourceCodePro-Light.ttf");
-
-            //ftgl::texture_glyph_t *glyph =  ftgl::texture_font_get_glyph(_ftFont, 'A');
-
-
         }
 
         void BatchRenderer2D::begin()
@@ -132,7 +126,7 @@ namespace ec2 {
             _indexCount += 6;
         }
 
-        void BatchRenderer2D::drawString(const std::string & text, const maths::vec3 & position, unsigned int color)
+        void BatchRenderer2D::drawString(const std::string & text, const maths::vec3 & position, const Font& font, unsigned int color)
         {
             using namespace ftgl;
 
@@ -141,7 +135,7 @@ namespace ec2 {
             bool found = false;
             for (int i = 0; i < _textureSlots.size(); i++)
             {
-                if (_textureSlots[i] == _ftAtlas->id)
+                if (_textureSlots[i] == font.getId())
                 {
                     ts = (float)(i + 1);
                     found = true;
@@ -157,7 +151,7 @@ namespace ec2 {
                     flush();
                     begin();
                 }
-                _textureSlots.push_back(_ftAtlas->id);
+                _textureSlots.push_back(font.getId());
                 ts = (float)_textureSlots.size();
             }
 
@@ -166,9 +160,11 @@ namespace ec2 {
 
             float x = position.x;
 
+            texture_font_t* ft_font = font.getFtFont();
+
             for (int i = 0; i < text.length(); ++i)
             {
-                texture_glyph_t *glyph = texture_font_get_glyph(_ftFont, text[i]);
+                texture_glyph_t *glyph = texture_font_get_glyph(ft_font, text[i]);
 
                 if (glyph != NULL)
                 {

@@ -4,6 +4,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "fontManager.h"
+
 namespace ec2 {
     namespace graphics {
 

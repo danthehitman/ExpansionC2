@@ -5,8 +5,6 @@
 #include "renderable2d.h"
 #include "buffers/indexbuffer.h"
 
-#include "../../ext/freetype-gl/freetype-gl.h"
-
 namespace ec2 {
     namespace graphics {
 
@@ -32,14 +30,12 @@ namespace ec2 {
 
             std::vector<GLuint> _textureSlots;
 
-            ftgl::texture_atlas_t * _ftAtlas;
-            ftgl::texture_font_t * _ftFont;
         public:
             BatchRenderer2D();
             ~BatchRenderer2D();
             void begin() override;
             void submit(const Renderable2D * renderable) override;
-            void drawString(const std::string & text, const maths::vec3 & position, unsigned int color) override;
+            void drawString(const std::string& text, const maths::vec3& position, const Font& font, unsigned int color) override;
             void end() override;
             void flush() override;
         private:

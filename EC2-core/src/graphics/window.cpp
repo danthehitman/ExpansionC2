@@ -17,6 +17,8 @@ namespace ec2 {
             if (!init())
                 glfwTerminate();
 
+            FontManager::add(new Font("SourceSansPro", "SourceCodePro-Light.ttf", 32));
+
             for (int i = 0; i < MAX_KEYS; i++)
             {
                 _keys[i] = false;
@@ -35,6 +37,7 @@ namespace ec2 {
 
         Window::~Window()
         {
+            FontManager::clean();
             glfwTerminate();
         }
 
